@@ -10,10 +10,21 @@ app.use(cors());
 const port = 3000;
 
 app.get('/:url', async (req, res) => {
-  console.log(req.params.url);
   try {
     const url = await URLObject.findOne({ shortURL: req.params.url });
+    url.numberOfAccesses += 1;
+    url.lastAccessed = Date.now();
+    await url.save();
     res.send(url.longURL);
+  } catch (e) {
+    res.send(e);
+  }
+});
+
+app.get('/:url/stats', async (req, res) => {
+  try {
+    const url = await URLObject.findOne({ shortURL: req.params.url });
+    res.send(url);
   } catch (e) {
     res.send(e);
   }
@@ -49,10 +60,6 @@ app.post('/', async (req, res) => {
   await newURL.save();
   res.status(200).send(newURL);
 });
-
-app.get('/:id/stats', (req, res) => {
-
-})
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}.`);
