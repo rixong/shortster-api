@@ -9,8 +9,14 @@ app.use(express.json());
 app.use(cors());
 const port = 3000;
 
-app.get('/', (req, res) => {
-  res.send('Hello Express');
+app.get('/:url', async (req, res) => {
+  console.log(req.params.url);
+  try {
+    const url = await URLObject.findOne({ shortURL: req.params.url });
+    res.send(url.longURL);
+  } catch (e) {
+    res.send(e);
+  }
 });
 
 app.post('/', async (req, res) => {
@@ -43,6 +49,10 @@ app.post('/', async (req, res) => {
   await newURL.save();
   res.status(200).send(newURL);
 });
+
+app.get('/:id/stats', (req, res) => {
+
+})
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}.`);
