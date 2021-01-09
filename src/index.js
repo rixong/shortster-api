@@ -15,9 +15,9 @@ app.get('/:url', async (req, res) => {
     url.numberOfAccesses += 1;
     url.lastAccessed = Date.now();
     await url.save();
-    res.send(url.longURL);
+    res.status(201).send(url.longURL);
   } catch (e) {
-    res.send(e);
+    res.send('');
   }
 });
 
