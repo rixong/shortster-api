@@ -11,11 +11,11 @@ const port = 3000;
 
 app.get('/:url', async (req, res) => {
   try {
-    const url = await URLObject.findOne({ shortURL: req.params.url });
-    url.numberOfAccesses += 1;
-    url.lastAccessed = Date.now();
-    await url.save();
-    res.status(201).send(url.longURL);
+    const urlObj = await URLObject.findOne({ shortURL: req.params.url });
+    urlObj.numberOfAccesses += 1;
+    urlObj.lastAccessed = Date.now();
+    await urlObj.save();
+    res.status(201).send(urlObj);
   } catch (e) {
     res.send('');
   }
@@ -23,8 +23,9 @@ app.get('/:url', async (req, res) => {
 
 app.get('/:url/stats', async (req, res) => {
   try {
-    const url = await URLObject.findOne({ shortURL: req.params.url });
-    res.send(url);
+    const urlObj = await URLObject.findOne({ shortURL: req.params.url });
+    console.log(urlObj.numberOfAccesses);
+    res.send(urlObj);
   } catch (e) {
     res.send(e);
   }
