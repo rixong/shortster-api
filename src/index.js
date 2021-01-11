@@ -17,17 +17,19 @@ app.get('/:url', async (req, res) => {
     await urlObj.save();
     res.status(201).send(urlObj);
   } catch (e) {
-    res.send('');
+    res.status(401).send({ error: 'Not a valid short URL.' });
   }
 });
 
 app.get('/:url/stats', async (req, res) => {
   try {
     const urlObj = await URLObject.findOne({ shortURL: req.params.url });
-    console.log(urlObj.numberOfAccesses);
+    if (!urlObj) {
+      return res.status(401).send({ error: 'Not a valid short URL.' });
+    }
     res.send(urlObj);
   } catch (e) {
-    res.send(e);
+    res.status(500).send({ error: 'Error!' });
   }
 });
 
@@ -40,10 +42,10 @@ app.post('/', async (req, res) => {
   if (customURL) {
     // Validate custom URL
     if (customURL.length < 4) {
-      return res.send('Too short. Must be at least 4 charaters long!');
+      return res.status(400).send({ error: 'Too short. Must be at least 4 characters long!' });
     }
     if (customURL.match(regExp).join('') !== customURL) {
-      return res.send('Only letters and numbers allowed!');
+      return res.status(400).send({ error: 'Only letters and numbers allowed!' });
     }
     generatedURL = customURL;
 
