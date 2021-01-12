@@ -18,6 +18,13 @@ describe('Endpoint test', () => {
     done();
   })
 
+  it('Creates a new URL Object', async done => {
+    const res = await (await request
+      .post('/'))
+      .send({longURL: 'www.mytesturl.com', shortURL: 'test'});
+    expect(res.status).toBe(201);
+  })
+
   afterAll(done => {
     server.close();
     done();
