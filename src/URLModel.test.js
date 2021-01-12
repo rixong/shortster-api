@@ -1,9 +1,5 @@
 /* eslint-disable */
 
-// const supertest = require('supertest');
-// const app = require('./server');
-
-// const request = supertest(app);
 const mongoose = require('mongoose');
 
 const URLObject = require('./URLModel');
@@ -11,6 +7,7 @@ const URLObject = require('./URLModel');
 const urlData = { longURL: 'https://movingworlds.org/', shortURL: 'Moving' };
 
 describe('URL Model Test', () => {
+
   beforeAll(async () => {
     await mongoose.connect(global.__MONGO_URI__, { useNewUrlParser: true, useCreateIndex: true }, (err) => {
       if (err) {
@@ -51,20 +48,5 @@ describe('URL Model Test', () => {
     expect(err).toBeInstanceOf(mongoose.Error.ValidationError)
     expect(err.errors.shortURL).toBeDefined();
   });
-
-
-  // it('Should save URL to database', async done => {
-  //   const res = await request.post('/')
-  //     .send({
-  //       longURL: 'https://movingworlds.org/',
-  //       shortURL: 'Moving',
-  //     });
-
-  //   // Searches the user in the database
-  //   const url = await URLObject.findOne({ shortURL: 'Moving' });
-  //   expect(url.shortURL).toBeTruthy();
-  //   expect(user.longURL).toBeTruthy();
-  //   done();
-  // })
 
 })

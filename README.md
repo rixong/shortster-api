@@ -3,6 +3,8 @@
 ### Github Repository:
 https://github.com/rixong/shortster-api
 
+You will also need to install and run [Shorster SPA](https://github.com/rixong/shortster-spa) on the same machine.
+
 ## Installation:
 Clone the folder locally from GitHub, install dependencies and start server in Development mode
 ```
@@ -21,7 +23,6 @@ You will need to install MongoDB on your local machine:
 * The API is configured to run on the default (stored in dev.env): 
   mongodb://127.0.0.1:27017/shortster
 
-You will also need to install and run [Shorster SPA](https://github.com/rixong/shortster-spa) on the same machine.
 
 ## App Instructions (Client side):
 CREATING A Short URL:
