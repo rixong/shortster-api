@@ -45,4 +45,18 @@ describe('URL Model Test', () => {
     expect(err.errors.shortURL).toBeDefined();
   });
 
+  it('Should save URL to database', async done => {
+    const res = await request.post('/')
+      .send({
+        longURL: 'https://movingworlds.org/',
+        shortURL: 'Moving',
+      });
+
+    // Searches the user in the database
+    const url = await URLObject.findOne({ shortURL: 'Moving' });
+    expect(url.shortURL).toBeTruthy();
+    expect(user.longURL).toBeTruthy();
+    done();
+  })
+
 })
