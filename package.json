@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node src/start.js",
     "dev": "env-cmd ./config/dev.env nodemon src/start.js",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test": "env-cmd ./config/dev.env jest",
+    "test:watch": "env-cmd ./config/dev.env jest --watch"
   },
   "keywords": [],
   "author": "Rick Glascock",
