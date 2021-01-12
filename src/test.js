@@ -1,4 +1,10 @@
+/* eslint-disable import/no-extraneous-dependencies */
+const supertest = require('supertest');
 const mongoose = require('mongoose');
+const app = require('./server');
+
+const request = supertest(app);
+
 const URLObject = require('./URLModel');
 
 const urlData = { longURL: 'https://movingworlds.org/', shortURL: 'Moving' };
